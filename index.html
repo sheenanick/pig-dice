@@ -10,10 +10,26 @@
   <body>
     <div class="container">
       <h1>Pig Dice</h1>
-      <div id="dice-select" class="form-group">
+      <div id="computer-select" class="form-group">
+        <h3>Choose your opponent</h3>
         <div class="radio">
           <label>
-            <input type="radio" name="dice" value="1">
+            <input type="radio" name="computer" value="1" checked>
+            Computer
+          </label>
+        </div>
+        <div class="radio">
+          <label>
+            <input type="radio" name="computer" value="2">
+            Player 2
+          </label>
+        </div>
+      </div>
+      <div id="dice-select" class="form-group">
+        <h3>Choose the number of dice</h3>
+        <div class="radio">
+          <label>
+            <input type="radio" name="dice" value="1" checked>
             Play with one die
           </label>
         </div>
@@ -24,9 +40,10 @@
           </label>
         </div>
       </div>
+      <button class="btn btn-success btn-lg" type="button" id="play">Play!</button>
+      <h3>Current Player: <span id="player"></span></h3>
       <button class="btn-primary" type="button" id="roll-dice">Roll Dice</button>
       <button class="btn" type="button" id="pass-turn">Pass Turn</button>
-      <h3>Current Player: <span id="player"></span></h3>
       <h4>Player 1 Score: <span id="score1"></span></h4>
       <h4>Player 2 Score: <span id="score2"></span></h4>
       <h3>Roll:</h3>
@@ -34,6 +51,14 @@
       </div>
       <h3>Turn Score:</h3>
       <div class="well" id="turnScore">
+      </div>
+      <div class="row">
+        <div class="col-sm-6">
+          <ul id="player1-rolls"></ul>
+        </div>
+        <div class="col-sm-6">
+          <ul id="player2-rolls"></ul>
+        </div>
       </div>
     </div>
   </body>
