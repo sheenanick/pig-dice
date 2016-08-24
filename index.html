@@ -10,6 +10,20 @@
   <body>
     <div class="container">
       <h1>Pig Dice</h1>
+      <div id="dice-select" class="form-group">
+        <div class="radio">
+          <label>
+            <input type="radio" name="dice" value="1">
+            Play with one die
+          </label>
+        </div>
+        <div class="radio">
+          <label>
+            <input type="radio" name="dice" value="2">
+            Play with two dice
+          </label>
+        </div>
+      </div>
       <button class="btn-primary" type="button" id="roll-dice">Roll Dice</button>
       <button class="btn" type="button" id="pass-turn">Pass Turn</button>
       <h3>Current Player: <span id="player"></span></h3>

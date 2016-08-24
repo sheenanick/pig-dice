@@ -1,6 +1,6 @@
 function Player(playerNumber) {
   this.playerNumber = playerNumber;
-  this.gameScore = 90;
+  this.gameScore = 80;
 
 }
 
@@ -29,29 +29,54 @@ $(document).ready(function() {
   var player2 = new Player(2);
   playerArray.push(player1);
   playerArray.push(player2);
+  function updateScores() {
+    $("#score1").text(player1.gameScore);
+    $("#score2").text(player2.gameScore);
+  }
+  function changePlayer(){
+    currentPlayer = nextPlayer(playerArray, currentTurn);
+    $("#player").text(currentPlayer.playerNumber);
+    currentTurn ++;
+  }
   var currentPlayer = playerArray[0];
   $("#player").text(currentPlayer.playerNumber);
-  $("#score1").text(player1.gameScore);
-  $("#score2").text(player2.gameScore);
+  updateScores();
   $("#roll-dice").click(function(){
-    var roll = getRandomInt()
-    $("#roll").text(roll);
+    $("#dice-select").hide();
+    var dice = parseInt($("input:radio[name=dice]:checked").val());
+    $('button#pass-turn').prop('disabled', false);
+    var roll1 = getRandomInt();
+    if(dice === 1){
+      var roll2 = 0;
+      var roll = roll1
+      $("#roll").text(roll1)
+    } else {
+      var roll2 = getRandomInt();
+      var roll = roll1 + roll2
+      $("#roll").text(roll1 + ", " + roll2);
+    }
 
-    if (roll === 1) {
+
+    if(roll1 === 1 && roll2 === 1){
+      currentPlayer.gameScore = 0;
       turnScore = 0;
       $("#turnScore").text(turnScore);
-      console.log(currentPlayer);
-      currentPlayer = nextPlayer(playerArray, currentTurn);
-      $("#player").text(currentPlayer.playerNumber);
-      $("#score1").text(player1.gameScore);
-      $("#score2").text(player2.gameScore);
-      console.log(currentTurn);
-      currentTurn ++;
+      updateScores();
+      changePlayer();
+    } else if (roll1 === 1 || roll2 === 1) {
+      turnScore = 0;
+      $("#turnScore").text(turnScore);
+      updateScores();
+      changePlayer();
+    } else if (roll1 === roll2) {
+      turnScore += roll;
+      $("#turnScore").text(turnScore);
+      $('button#pass-turn').prop('disabled', true);
     } else {
       turnScore += roll;
       $("#turnScore").text(turnScore);
       if(currentPlayer.gameScore + turnScore >= 100){
-        $("#turnScore").append("<span>Don't get greedy</span>")
+        $("#turnScore").append("<span> Don't get greedy</span>")
       }
     }
   });
@@ -59,16 +84,18 @@ $(document).ready(function() {
     $("#roll").text("");
     $("#turnScore").text("");
     currentPlayer.totalScore(turnScore);
-    console.log(currentPlayer);
-    $("#score1").text(player1.gameScore);
-    $("#score2").text(player2.gameScore);
+    updateScores();
     if(currentPlayer.gameScore >= 100){
       alert("You Win!");
+      turnScore = 0;
+      player1.gameScore = 0;
+      player2.gameScore = 0;
+      currentTurn = 1;
+      changePlayer();
+      updateScores();
+      $("#dice-select").show();
     } else {
-      currentPlayer = nextPlayer(playerArray, currentTurn);
-      $("#player").text(currentPlayer.playerNumber);
-      console.log(currentTurn);
-      currentTurn ++;
+      changePlayer();
       turnScore = 0;
     }
   });
