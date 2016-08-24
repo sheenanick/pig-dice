@@ -93,18 +93,19 @@ $(document).ready(function() {
 
     function resetGame(){
       updateScores();
-      changePlayer();
       playerArray.splice(-2, 2);
       $("#dice-select, #computer-select").show();
       $("li").remove();
       $("#roll").text("");
       $("#turnScore").text("");
+      $("#roll-dice, #pass-turn").off();
     }
 
     function computersTurn(){
       for (var i = 0; currentPlayer.computer; i++){
         if(currentPlayer.gameScore + turnScore >= 100){
           alert("Computer Wins!");
+          changePlayer();
           resetGame();
         } else if (i < 2) {
           rollDice();
