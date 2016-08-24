@@ -56,7 +56,6 @@ $(document).ready(function() {
       $("#roll").text(roll1 + ", " + roll2);
     }
 
-
     if(roll1 === 1 && roll2 === 1){
       currentPlayer.gameScore = 0;
       turnScore = 0;
