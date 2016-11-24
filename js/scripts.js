@@ -1,6 +1,6 @@
 function Player(playerNumber) {
   this.playerNumber = playerNumber;
-  this.gameScore = 80;
+  this.gameScore = 0;
 
 }
 
